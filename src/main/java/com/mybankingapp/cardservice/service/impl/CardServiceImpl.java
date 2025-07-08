@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Random;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -19,6 +20,8 @@ import java.util.stream.Collectors;
 public class CardServiceImpl implements CardService {
 
     private final CardRepository repository;
+
+    private final Random random = new Random();
 
     @Override
     public CardResponse createCard(CreateCardRequest request) {
@@ -68,6 +71,14 @@ public class CardServiceImpl implements CardService {
     }
 
     private String generateMaskedCardNumber() {
-        return "XXXX-XXXX-XXXX-" + (int)(Math.random() * 10000);
+        StringBuilder cardNumber = new StringBuilder();
+        for (int i = 0; i < 4; i++) {
+            int block = random.nextInt(10000);
+            cardNumber.append(String.format("%04d", block));
+            if (i < 3) {
+                cardNumber.append("-");
+            }
+        }
+        return cardNumber.toString();
     }
 }
