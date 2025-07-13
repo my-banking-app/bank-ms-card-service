@@ -9,9 +9,9 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.security.SecureRandom;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Random;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -21,7 +21,7 @@ public class CardServiceImpl implements CardService {
 
     private final CardRepository repository;
 
-    private final Random random = new Random();
+    private final SecureRandom random = new SecureRandom();
 
     @Override
     public CardResponse createCard(CreateCardRequest request) {
